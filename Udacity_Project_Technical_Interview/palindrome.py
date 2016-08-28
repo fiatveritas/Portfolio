@@ -9,10 +9,11 @@ def question2(a):
     first_index = 0
     last_index = len(word_holder) - 1
     
-    if len(word_holder) % 2 == 0:
-    	even_bool = True
-    elif len(word_holder) != 0:
-    	even_bool = False
     return None
+def check_backwards(a):
+    reversed_word = ''
+    reversed_word = reversed_word.join(reversed([i for i in a.lower()])
+    if 
+
 
 print question2('jesse')
