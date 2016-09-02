@@ -9,26 +9,51 @@ def question2(a):
         return "True, \"{}\" \nis a palindrome".format(a)
     
     else:
-        return "False, \"{}\" \nis not a palindrome".format(a)
+        word = ''
+        reversed_word = ''
+        palindrome = ''
+        list_of_palindrome = []
+
+        holder = re.split('W+', a.lower())
+        word = word.join(holder)
+        #print word
+
+        reversed_holder = [ i for i in reversed(word)]
+        reversed_word = reversed_word.join(reversed_holder)
+        #print reversed_word
+        
+        start = 0
+        end = len(word) - 1
+        while start <= len(word) - 1 and end >= 0:
+            for letter in reversed_word:
+                if word[start] == letter:
+                    palindrome += letter
+                    start += 1
+                else:
+                    list_of_palindrome.append(palindrome)
+                    palindrome = ''
+                
+
+    
 def check_backwards(a):
     """This function checks if the word\
     is already a palindrome."""
-    print a
+    #print a
 
     word = ''
     reversed_word = ''
 
     holder = re.split('\W+', a.lower())
-    print holder
+    #print holder
 
     word = word.join(holder)
-    print word
+    #print word
 
     reversed_holder = [ i for i in reversed(word) ]
-    print reversed_holder
+    #print reversed_holder
 
     reversed_word = reversed_word.join(reversed(word))
-    print reversed_word
+    #print reversed_word
 
     if reversed_word == word:
         return True
@@ -36,7 +61,7 @@ def check_backwards(a):
         return False
 
 ####Test Cases
-#print question2('Jesse')
+print question2('Jesse')
 #print question2('Anna')
 #print question2('Are we not drawn onward, we few, drawn onward to new era?')
 #print question2('No demerits tire me, Don.')
