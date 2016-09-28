@@ -15,6 +15,7 @@ class LearningAgent(Agent):
     def reset(self, destination=None):
         self.planner.route_to(destination)
         # TODO: Prepare for a new trip; reset any variables here, if required
+        
 
     def update(self, t):
         # Gather inputs
@@ -25,7 +26,7 @@ class LearningAgent(Agent):
         # TODO: Update state
         
         # TODO: Select action according to your policy
-        action = None
+        action = random.choice(self.env.valid_actions[1:])
 
         # Execute action and get reward
         reward = self.env.act(self, action)
