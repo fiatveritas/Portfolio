@@ -13,6 +13,7 @@ class LearningAgent(Agent):
         self.planner = RoutePlanner(self.env, self)  # simple route planner to get next_waypoint
         # TODO: Initialize any additional variables here
         self.rate = 0.3
+        self.gamma = 0.9
         self.state = None
         self.q_learn = {}
         self.runs = 0
@@ -51,13 +52,25 @@ class LearningAgent(Agent):
         if random.random() < exploration:
             action = np.random.choice(self.valid_actions, p = chances)
         else:
-            action = self.valid_actions[np.argmax(chances)]
+            action = self.valid_actions[np.argmax(chances)] #########randomize this line for random action at start chances are equal rule out equalilty case
 
         # Execute action and get reward
         reward = self.env.act(self, action)
 
+        new_next_inputs = self.env.sense(self)
+        next_state = (self.planner.next_waypoint(), new_next_inputs['light'], new_next_inputs['oncoming'], new_next_inputs['left'], new_next_inputs['right'])
+
+        for a in self.valid_actions:
+            if (next_state, a) not in self.q_learn:
+                self.q_learn[(next_state, a)] = 1
+
+        new_q_values = [self.q_learn[(next_state, a)] for a in self.valid_actions]
+        max_q = max(new_q_values)
+        lister_for_new_q_values = [q for q in new_q_values if q == max_q]
+        max_q = np.random.choice(lister_for_new_q_values)
+
         # TODO: Learn policy based on state, action, reward
-        self.q_learn[(self.state, action)] = self.rate * reward + (1 - self.rate) * self.q_learn[(self.state, action)]
+        self.q_learn[(self.state, action)] = self.rate * reward + (1 - self.rate) * self.q_learn[(self.state, action)] + self.rate * self.gamma * max_q
 
         print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
 
@@ -68,14 +81,14 @@ def run():
     # Set up environment and agent
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
-    e.set_primary_agent(a, enforce_deadline=False)  # specify agent to track
+    e.set_primary_agent(a, enforce_deadline = False)  # specify agent to track
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=.0000001, display=True)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay = 1, display = True)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
-    sim.run(n_trials=100)  # run for a specified number of trials
+    sim.run(n_trials = 100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
 
 
