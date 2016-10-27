@@ -12,7 +12,7 @@ class LearningAgent(Agent):
         self.color = 'red'  # override color
         self.planner = RoutePlanner(self.env, self)  # simple route planner to get next_waypoint
         # TODO: Initialize any additional variables here
-        self.rate = 0.3
+        self.rate = 0.1
         self.gamma = 0.9
         self.state = None
         self.q_learn = {}
@@ -51,8 +51,11 @@ class LearningAgent(Agent):
 
         if random.random() < exploration:
             action = np.random.choice(self.valid_actions, p = chances)
-        else:
-            action = self.valid_actions[np.argmax(chances)] #########randomize this line for random action at start chances are equal rule out equalilty case
+        else:#this statement chooses max q_value and if there are multiple max values it randomly chooses one of them
+            likely = max(chances)
+            holder = [index for index in range(len(chances)) if likely == chances[index]]
+            entry = np.random.choice(holder)
+            action = self.valid_actions[entry]
 
         # Execute action and get reward
         reward = self.env.act(self, action)
@@ -66,8 +69,6 @@ class LearningAgent(Agent):
 
         new_q_values = [self.q_learn[(next_state, a)] for a in self.valid_actions]
         max_q = max(new_q_values)
-        lister_for_new_q_values = [q for q in new_q_values if q == max_q]
-        max_q = np.random.choice(lister_for_new_q_values)
 
         # TODO: Learn policy based on state, action, reward
         self.q_learn[(self.state, action)] = self.rate * reward + (1 - self.rate) * self.q_learn[(self.state, action)] + self.rate * self.gamma * max_q
@@ -81,11 +82,11 @@ def run():
     # Set up environment and agent
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
-    e.set_primary_agent(a, enforce_deadline = False)  # specify agent to track
+    e.set_primary_agent(a, enforce_deadline = True)  # specify agent to track
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay = 1, display = True)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay = 0, display = False)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
     sim.run(n_trials = 100)  # run for a specified number of trials
