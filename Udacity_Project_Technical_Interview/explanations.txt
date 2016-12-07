@@ -1,0 +1,19 @@
+Question 1
+
+For question1, the idea is to use a hash table to make searching into a constant space problem with complexity O(1). The get_dict() method assigns each letter a unique, prime hash value. For each letter in a string, the function then takes the product of hash values together. question1() compares the product of hash values of 't' with products for substrings in 's' with same length as 't'. When the products match, the "for-loop for letter in list(string)" has time complexity of O(m); the "for-loop for i in range(len(s) - len(t))" has time complexity of O(n).Hence, the time complexity is O(m*n).
+
+Question 2
+
+The thought flow for this problem is to check whether each substring of the string 'a' is a palindrome. If a palindromic substring is found, the 'if' statement records the current longest palindrome. Because the outer for-loop "for i in range(len(a))" and inner "for-loop for j in range(0, i)" are nested they are on the time complexity of O(n^2). The space needed when recording the current substring and the current longest substring is on the order O(1).
+
+Question 3
+
+The procedure to follow is to start with a tree 'T' that contains a vertex 'v'. What comes next is to find the least expensive edge associated with that vertex. Each node is visited once in the outer while-loop "while len(min_span_tree.keys()) < len(nodes)". Likewise for the inner for-loop "for node in min_span_tree.keys()", each edge is visited once. The time complexity is O(E*V), where 'E' denotes the number of edges and 'V' denotes the number of vertices. The resulting minimum spanning tree has V nodes, thus the space complexity is O(V).
+
+Question 4
+
+The goal is to find the ancestors of nodes n1 and n2 up to the root and store them in a list. Memory complexity is on the order of O(depth), depth is the location where the root is in the graph. The process is on the time complexity of O(depth). When all the ancestors are found, the first common ancestor of both lists is found as the least common ancestor (this is done with the nested for-loop).
+
+Question 5
+
+This exercise requires two pointers. One points to the head of the linked list and the other node is n-position away from the head. The algorithm has a runtime complexity of O(n) because of the while-loop; the loop moves the pointers until the head reaches 'None' and returns the value nth position from the end. The space complexity of O(1) space when storing values into a linked list.

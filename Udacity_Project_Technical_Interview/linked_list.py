@@ -1,29 +1,48 @@
-#!/usr/bin/python2.7
-
 class Node(object):
-  def __init__(self, data):
-    self.data = data
-    self.next = None
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
 
 def question5(ll, m):
-
     """This script returns an element in a singly linked list that's 'm' elements from the end of a string 'a'."""
+    if ll:
+        counter = 1
+        node = ll
+        while node.next:
+            node = node.next
+            counter += 1
+        if m < counter:
+            kounter = counter - m
+            i = 0
+            node = ll
+            while i < kounter:
+                node = node.next
+                i += 1
+        else:
+            return None
+    else:
+        node = ll
+    return node.data
 
-    if ll == None or m < 1: #check whether the linked list is empty or mth value less than one. If so, script terminates.
-    	return None
+junk_0 = Node(None)
+print question5(junk_0, 1)
+# Should print None
 
-    last = ll # set last as the counter that will go to the mth location in following while loop
-              # the ll and last nodes will be m positions away from each other
+junk_0 = Node(0)
+print question5(junk_0, 4)
+# Should print None
 
-    while last != None and m > 0: # checks if last arrived at the end of linked or if m is out of bound
-    	last = last.next
-    	m -= 1
+junk_0 = Node(0)
+junk_1 = Node(1)
+junk_2 = Node(2)
+junk_3 = Node(3)
+junk_4 = Node(4)
 
-    if m != 0:
-    	return None
+junk_0.next = junk_1
+junk_1.next = junk_2
+junk_2.next = junk_3
+junk_3.next = junk_4
 
-    while last != None: #this moves the pair of pointers until last arrives at last node
-    	last = last.next # moreover, ll get positioned where last was set
-    	ll = ll.next
-
-    return ll
+print question5(junk_0, 3)
+# Should print 2
