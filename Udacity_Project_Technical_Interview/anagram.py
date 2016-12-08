@@ -24,6 +24,11 @@ def question1(s, t):
             s_dict_length = get_dict(s[i:i+len(t)])
             if s_dict_length == t_dict_length:
                 return True
+        i += 1
+        s_dict_length = get_dict(s[i:])
+        if s_dict_length == t_dict_length:
+            return True
+
         return False
 
 print '################################'
@@ -47,5 +52,8 @@ print question1('udacity', 'ad')
 
 print question1('abcdefghijklmnopqrstuvwxyz', 'udacity')
 # Prints False
+
+print question1('udacity', 'icty')
+# Prints True
 
 print '################################'
