@@ -10,7 +10,7 @@ This project requires:
 * [SciKit 0.17.1](https://pypi.python.org/pypi/scikit-learn/0.17.1)
 * [matplotlib](http://matplotlib.org/)
 
-####This project uses the [iPython Notebook](http://ipython.org/notebook.html) to run.
+###This project uses the [iPython Notebook](http://ipython.org/notebook.html) to run.
 
 ###Run
 
