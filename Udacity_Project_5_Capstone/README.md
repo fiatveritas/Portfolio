@@ -1,5 +1,5 @@
 # Machine Learning Engineer Nanodegree
-## Project: Love at First Sight
+## Capstone Project: Love at First Sight
 
 ### Install
 
