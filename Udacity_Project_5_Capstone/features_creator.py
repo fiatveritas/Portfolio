@@ -66,15 +66,39 @@ for i, j, k in zip(rounds, more_stuff_to_drop, additional_stuff_to_drop):
 		data_cleaner[i].remove(k)
 ################################################
 ################################################
+clean_up_1 = ['attr1_1', 'sinc1_1', 'intel1_1', 'fun1_1', 'amb1_1', 'shar1_1', 
+'attr1_2', 'sinc1_2', 'intel1_2', 'fun1_2', 'amb1_2', 'shar1_2',
+'attr1_3', 'sinc1_3', 'intel1_3', 'fun1_3', 'amb1_3', 'shar1_3',
+'attr2_1', 'sinc2_1', 'intel2_1', 'fun2_1', 'amb2_1', 'shar2_1', 
+]
+clean_up_2 = ['attr3_1', 'sinc3_1', 'intel3_1', 'fun3_1', 'amb3_1',
+'attr3_2', 'sinc3_2', 'intel3_2', 'fun3_2', 'amb3_2',
+'attr3_3', 'sinc3_3', 'intel3_3', 'fun3_3', 'amb3_3',
+]
+clean_up_3 = ['attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1',
+'attr5_2', 'sinc5_2', 'intel5_2', 'fun5_2', 'amb5_2',
+'attr5_3', 'sinc5_3', 'intel5_3', 'fun5_3', 'amb5_3'
+]
+clean_up_4 = ['attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1',
+'attr4_2', 'sinc4_2', 'intel4_2', 'fun4_2', 'amb4_2', 'shar4_2',
+'attr4_3', 'sinc4_3', 'intel4_3', 'fun4_3', 'amb4_3', 'shar4_3',
+'attr2_3', 'sinc2_3', 'intel2_3', 'fun2_3', 'amb2_3', 'shar2_3'
+]
+clean_up_5 = ['attr2_2', 'sinc2_2', 'intel2_2', 'fun2_2', 'amb2_2', 'shar2_2']
+################################################
+################################################
 if __name__ == '__main__':
-	"""print list_of_question
-	print features_of_attraction
-	print mod_list_of_question
-	print rounds
-	print lister"""	
+	#print list_of_question
+	#print features_of_attraction
+	#print mod_list_of_question
+	#print rounds
+	#print lister	
 	for i, j in data_cleaner.iteritems():
-		print i, j
-	for i, j in master_list.items():
-		print i, j
+		print j
+	"""for i, j in master_list.items():
+		print i, j"""
 ################################################
 ################################################
+
+#'attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1', 
+#'attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1'
