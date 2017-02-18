@@ -149,8 +149,8 @@ print question3({'A': [('B', 3), ('E', 1)],
 print '################################'
 
 def question4(T, r, n1, n2):
-    """This script finds the least common ancestor between\
-    two nodes on a binary search tree."""
+    #\"\"\"This script finds the least common ancestor between\
+    #two nodes on a binary search tree.\"\"\"
     if len(T) == 0:
         return T
     elif len(T) == 1:

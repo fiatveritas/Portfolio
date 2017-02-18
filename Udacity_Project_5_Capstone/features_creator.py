@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	print lister"""	
 	for i, j in data_cleaner.iteritems():
 		print i, j
-	for i, j in master_list.items():
-		print i, j
+	"""for i, j in master_list.items():
+		print i, j"""
 ################################################
 ################################################

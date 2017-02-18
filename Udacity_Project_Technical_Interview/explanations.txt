@@ -12,7 +12,7 @@ The procedure to follow is to start with a tree 'T' that contains a vertex 'v'. 
 
 Question 4
 
-The goal is to find the ancestors of nodes n1 and n2 up to the root and store them in a list. Memory complexity is on the order of O(n), where n is farthest distance from the root in the graph. The process is on the time complexity of O(n^2). When all the ancestors are found, the first common ancestor of both lists is found as the least common ancestor (this is done with the nested for-loop).
+The goal is to find the ancestors of nodes n1 and n2 up to the root and store them in a list. Memory complexity is on the order of O(n), where n is farthest distance from the root in the graph. The process is on the time complexity of O(n^2). When all the ancestors are found, the first common ancestor of both lists is found as the least common ancestor (this is done with the nested for-loop). Balanced BST have O(log(n)) complexity because of the recursive nature of traversing the tree. The time complexity for a unbalanced tree is O(n) because each node is traversed.
 
 Question 5
 
