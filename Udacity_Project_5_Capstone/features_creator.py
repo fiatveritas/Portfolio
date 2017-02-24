@@ -94,11 +94,13 @@ if __name__ == '__main__':
 	#print rounds
 	#print lister	
 	for i, j in data_cleaner.iteritems():
-		print i, j
-	"""for i, j in master_list.items():
-		print i, j"""
+		print i, j, '\n'
+	for i, j in master_list.items():
+		print i, j, '\n'
+	print 'clean_up_1', '\n', clean_up_1, '\n'
+	print 'clean_up_2', '\n', clean_up_2, '\n'
+	print 'clean_up_3', '\n', clean_up_3, '\n'
+	print 'clean_up_4', '\n', clean_up_4, '\n'
+	print 'clean_up_5', '\n', clean_up_5, '\n'
 ################################################
 ################################################
-
-#'attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1', 
-#'attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1'
