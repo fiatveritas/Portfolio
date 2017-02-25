@@ -16,7 +16,7 @@ This project requires:
 
 In a terminal or command window, navigate to the top-level project (that contains this README) and the following commands:
 
-`ipython notebook customer_segments.ipynb`
+`ipython notebook Love_At_First_Sight.ipynb`
 
 ###Data
 
