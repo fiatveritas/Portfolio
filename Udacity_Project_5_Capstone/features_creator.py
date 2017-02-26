@@ -66,6 +66,15 @@ for i, j, k in zip(rounds, more_stuff_to_drop, additional_stuff_to_drop):
 		data_cleaner[i].remove(k)
 ################################################
 ################################################
+non_matches_decision_investigation = [i for i in features_of_attraction]
+non_matches_decision_investigation.append('dec')
+non_matches_decision_investigation.append('dec_o')
+rating_by_partner_features = [i + '_o' for i in features_of_attraction]
+for i in rating_by_partner_features:
+    non_matches_decision_investigation.append(i)
+non_matches_decision_investigation.append('match')
+################################################
+################################################
 clean_up_1 = ['attr1_1', 'sinc1_1', 'intel1_1', 'fun1_1', 'amb1_1', 'shar1_1', 
 'attr1_2', 'sinc1_2', 'intel1_2', 'fun1_2', 'amb1_2', 'shar1_2',
 'attr1_3', 'sinc1_3', 'intel1_3', 'fun1_3', 'amb1_3', 'shar1_3',
@@ -102,5 +111,6 @@ if __name__ == '__main__':
 	print 'clean_up_3', '\n', clean_up_3, '\n'
 	print 'clean_up_4', '\n', clean_up_4, '\n'
 	print 'clean_up_5', '\n', clean_up_5, '\n'
+	print 'non_matches_decision_investigation', '\n', non_matches_decision_investigation, '\n'
 ################################################
 ################################################
