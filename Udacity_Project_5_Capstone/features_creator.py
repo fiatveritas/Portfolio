@@ -102,6 +102,9 @@ for i in range(1,3):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + actual_decisions + non_matches_decision_investigation
+################################################
+################################################
 if __name__ == '__main__':
 	#print list_of_question
 	#print features_of_attraction
@@ -119,5 +122,6 @@ if __name__ == '__main__':
 	print 'clean_up_5', '\n', clean_up_5, '\n'
 	print 'actual_decisions', '\n', actual_decisions, '\n'
 	print 'non_matches_decision_investigation', '\n', non_matches_decision_investigation, '\n'
+	print 'list_of_lists', '\n', list_of_lists, '\n'
 ################################################
 ################################################
