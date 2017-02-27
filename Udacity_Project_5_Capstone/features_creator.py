@@ -96,6 +96,12 @@ clean_up_4 = ['attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1',
 clean_up_5 = ['attr2_2', 'sinc2_2', 'intel2_2', 'fun2_2', 'amb2_2', 'shar2_2']
 ################################################
 ################################################
+actual_decisions = []
+for i in range(1,3):
+	for j in features_of_attraction:
+		actual_decisions.append(j + '7_' + str(i))
+################################################
+################################################
 if __name__ == '__main__':
 	#print list_of_question
 	#print features_of_attraction
@@ -111,6 +117,7 @@ if __name__ == '__main__':
 	print 'clean_up_3', '\n', clean_up_3, '\n'
 	print 'clean_up_4', '\n', clean_up_4, '\n'
 	print 'clean_up_5', '\n', clean_up_5, '\n'
+	print 'actual_decisions', '\n', actual_decisions, '\n'
 	print 'non_matches_decision_investigation', '\n', non_matches_decision_investigation, '\n'
 ################################################
 ################################################
