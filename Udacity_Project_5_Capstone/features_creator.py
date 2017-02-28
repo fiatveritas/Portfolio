@@ -94,6 +94,10 @@ clean_up_4 = ['attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1',
 'attr2_3', 'sinc2_3', 'intel2_3', 'fun2_3', 'amb2_3', 'shar2_3'
 ]
 clean_up_5 = ['attr2_2', 'sinc2_2', 'intel2_2', 'fun2_2', 'amb2_2', 'shar2_2']
+
+clean_up_6 = [j + str(i) + '_s' for i in range(1,4) for j in features_of_attraction]
+clean_up_6 = clean_up_6[:6] + clean_up_6[12:]
+del clean_up_6[-1]
 ################################################
 ################################################
 actual_decisions = []
