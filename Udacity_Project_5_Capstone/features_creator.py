@@ -101,7 +101,7 @@ del clean_up_6[-1]
 ################################################
 ################################################
 actual_decisions = []
-for i in range(1,3):
+for i in range(2,4):
 	for j in features_of_attraction:
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
