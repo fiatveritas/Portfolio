@@ -101,7 +101,7 @@ del clean_up_6[-1]
 ################################################
 ################################################
 actual_decisions = []
-for i in range(2,4):
+for i in range(2, 4):
 	for j in features_of_attraction:
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
@@ -127,5 +127,16 @@ if __name__ == '__main__':
 	print 'actual_decisions', '\n', actual_decisions, '\n'
 	print 'non_matches_decision_investigation', '\n', non_matches_decision_investigation, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
+################################################
+################################################
+def dating_attributes_vs_time(data, gender):
+	for i, j in master_list.iteritems():
+		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
+		new_frame = stuff[stuff['gender'] == gender].copy()
+		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
+		for i in new_frame.columns:
+			new_frame[i] = (new_frame[i] - new_frame[i].min()) / (new_frame[i].max() - new_frame[i].min())
+		display(new_frame.describe())
+		new_frame.hist(bins = 10, figsize = (15, 5))
 ################################################
 ################################################
