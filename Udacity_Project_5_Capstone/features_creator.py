@@ -14,6 +14,9 @@ features_of_attraction = ['attr', 'sinc', 'intel', 'fun', 'amb', 'shar']
 preferences_of_attraction = ['pf_o_' + i[:3] for i in features_of_attraction]
 ################################################
 ################################################
+interests = ['sports', 'tvsports', 'exercise', 'dining', 'museums', 'art', 'hiking', 'gaming', 'clubbing', 'reading', 'tv', 'theater', 'movies', 'concerts', 'music', 'shopping', 'yoga']
+################################################
+################################################
 mod_list_of_question = [str(i) + '_' + str(j) for i in list_of_question for j in features_of_attraction]
 ################################################
 ################################################
@@ -109,7 +112,7 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation + rating_by_partner_features + preferences_of_attraction
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'income', 'like', 'prob'] + interests
 ################################################
 ################################################
 if __name__ == '__main__':
