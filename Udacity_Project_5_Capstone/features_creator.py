@@ -11,8 +11,11 @@ list_of_question = ['what_you_want', 'you_think_opposite_wants', 'how_you_measur
 features_of_attraction = ['attr', 'sinc', 'intel', 'fun', 'amb', 'shar']
 ################################################
 ################################################
+preferences_of_attraction = ['pf_o_' + i[:3] for i in features_of_attraction]
+################################################
+################################################
 mod_list_of_question = [str(i) + '_' + str(j) for i in list_of_question for j in features_of_attraction]
-################################################set up features
+################################################
 ################################################
 lister = [str(k) + str(i) + '_' + str(j) 
 for j in range(1,4) for i in range(1,6) for k in features_of_attraction ]
@@ -106,7 +109,7 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation + rating_by_partner_features + preferences_of_attraction
 ################################################
 ################################################
 if __name__ == '__main__':
