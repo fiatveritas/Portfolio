@@ -73,12 +73,12 @@ for i, j, k in zip(rounds, more_stuff_to_drop, additional_stuff_to_drop):
 ################################################
 ################################################
 non_matches_decision_investigation = [i for i in features_of_attraction]
-non_matches_decision_investigation.append('dec')
-non_matches_decision_investigation.append('dec_o')
+#non_matches_decision_investigation.append('dec')
+#non_matches_decision_investigation.append('dec_o')
 rating_by_partner_features = [i + '_o' for i in features_of_attraction]
 for i in rating_by_partner_features:
     non_matches_decision_investigation.append(i)
-non_matches_decision_investigation.append('match')
+#non_matches_decision_investigation.append('match')
 ################################################
 ################################################
 clean_up_1 = ['attr1_1', 'sinc1_1', 'intel1_1', 'fun1_1', 'amb1_1', 'shar1_1', 
@@ -112,7 +112,7 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'income', 'like', 'prob'] + interests
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + non_matches_decision_investigation + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'income', 'like', 'prob', 'mn_sat', 'tuition', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
 ################################################
 ################################################
 if __name__ == '__main__':
