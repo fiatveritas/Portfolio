@@ -106,7 +106,7 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'income', 'like', 'prob', 'mn_sat', 'tuition', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
 ################################################
 ################################################
 if __name__ == '__main__':
