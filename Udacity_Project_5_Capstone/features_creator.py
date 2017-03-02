@@ -125,7 +125,6 @@ if __name__ == '__main__':
 	print 'clean_up_4', '\n', clean_up_4, '\n'
 	print 'clean_up_5', '\n', clean_up_5, '\n'
 	print 'actual_decisions', '\n', actual_decisions, '\n'
-	print 'non_matches_decision_investigation', '\n', non_matches_decision_investigation, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
 ################################################
 ################################################
