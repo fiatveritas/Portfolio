@@ -129,18 +129,27 @@ if __name__ == '__main__':
 	print 'clean_up_3', '\n', clean_up_3, '\n'
 	print 'clean_up_4', '\n', clean_up_4, '\n'
 	print 'clean_up_5', '\n', clean_up_5, '\n'
+	print 'clean_up_6', '\n', clean_up_6, '\n'
+	print 'features_of_attraction', '\n', features_of_attraction, '\n'
+	print 'preferences_of_attraction', '\n', preferences_of_attraction, '\n'
 	print 'actual_decisions', '\n', actual_decisions, '\n'
+	print 'rating_by_partner_features', '\n', rating_by_partner_features, '\n'
+	print 'halfway_questions', '\n', halfway_questions, '\n'
+	print 'interests', '\n', interests, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
 ################################################
 ################################################
-def dating_attributes_vs_time(data, gender):
+def dating_attributes_vs_time_describe(data, gender):
 	for i, j in master_list.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
 		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
-		for i in new_frame.columns:
-			new_frame[i] = (new_frame[i] - new_frame[i].min()) / (new_frame[i].max() - new_frame[i].min())
 		display(new_frame.describe())
+################################################
+################################################
+def dating_attributes_vs_time_describe_hist(data, gender):
+	for i, j in master_list.iteritems():
+		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
+		new_frame = stuff[stuff['gender'] == gender].copy()
+		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
 		new_frame.hist(bins = 10, figsize = (15, 5))
-################################################
-################################################
