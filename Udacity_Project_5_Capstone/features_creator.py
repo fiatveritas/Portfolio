@@ -14,6 +14,11 @@ features_of_attraction = ['attr', 'sinc', 'intel', 'fun', 'amb', 'shar']
 preferences_of_attraction = ['pf_o_' + i[:3] for i in features_of_attraction]
 ################################################
 ################################################
+halfway_questions = [i + '1_s' for i in features_of_attraction]
+for i in features_of_attraction[:-1]:
+	halfway_questions.append(i + '3_s')
+################################################
+################################################
 interests = ['sports', 'tvsports', 'exercise', 'dining', 'museums', 'art', 'hiking', 'gaming', 'clubbing', 'reading', 'tv', 'theater', 'movies', 'concerts', 'music', 'shopping', 'yoga']
 ################################################
 ################################################
@@ -106,7 +111,7 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + halfway_questions + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
 ################################################
 ################################################
 if __name__ == '__main__':
