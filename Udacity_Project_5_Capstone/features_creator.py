@@ -147,7 +147,7 @@ def dating_attributes_vs_time_describe(data, gender):
 		display(new_frame.describe())
 ################################################
 ################################################
-def dating_attributes_vs_time_describe_hist(data, gender):
+def dating_attributes_vs_time_hist(data, gender):
 	for i, j in master_list.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
