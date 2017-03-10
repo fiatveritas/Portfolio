@@ -152,7 +152,7 @@ def dating_attributes_vs_time_hist(data, gender):
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
 		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
-		new_frame.hist(bins = 10, figsize = (15, 5))
+		new_frame.plot(kind = 'hist', stacked = True, bins = 10)
 ################################################
 ################################################
 def scale_question_4(data):
@@ -188,3 +188,8 @@ def likert_scale_question_3(data):
 def scale_majority_of_features(data):
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
+################################################
+################################################
+def count_samples_in_features(data):
+	for i, j in zip(data.keys(),data.count()):
+		print '\t', i, j, '\t',
