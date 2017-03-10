@@ -153,3 +153,22 @@ def dating_attributes_vs_time_hist(data, gender):
 		new_frame = stuff[stuff['gender'] == gender].copy()
 		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
 		new_frame.hist(bins = 10, figsize = (15, 5))
+################################################
+################################################
+def scale_question_4(data):
+	new_frame = pd.DataFrame((data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4] - data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].min()) / (data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].max() - data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].min()))
+	new_frame_2 = pd.DataFrame((data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4] - data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].min()) / (data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].max() - data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].min()))
+	result = pd.concat([new_frame, new_frame_2])
+	return data.update(result)
+################################################
+################################################
+def convert_income_to_float(data):
+	income_lister = np.array([float(''.join(str(i).split(','))) for i in data['income']])
+	income_lister = pd.DataFrame(data = income_lister, columns = ['income'])
+	return data.update(income_lister)
+################################################
+################################################
+def convert_tuition_to_float(data):
+	tuition_lister = np.array([float(''.join(str(i).split(','))) for i in data['tuition']])
+	tuition_lister = pd.DataFrame(data = tuition_lister, columns = ['tuition'])
+	return data.update(tuition_lister)
