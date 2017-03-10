@@ -172,3 +172,13 @@ def convert_tuition_to_float(data):
 	tuition_lister = np.array([float(''.join(str(i).split(','))) for i in data['tuition']])
 	tuition_lister = pd.DataFrame(data = tuition_lister, columns = ['tuition'])
 	return data.update(tuition_lister)
+################################################
+################################################
+def likert_scale_question_3(data):
+	for i in clean_up_2:
+		data[i].replace(to_replace = 12.0, value = 10.0, inplace = True)
+################################################
+################################################
+def scale_majority_of_features(data):
+	for i in list_of_lists:
+		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
