@@ -174,6 +174,12 @@ def convert_tuition_to_float(data):
 	return data.update(tuition_lister)
 ################################################
 ################################################
+def sat_to_float(data):
+	sat_lister = np.array([float(''.join(str(i).split(','))) for i in data['mn_sat']])
+	sat_lister = pd.DataFrame(data = sat_lister, columns = ['mn_sat'])
+	return data.update(sat_lister)
+################################################
+################################################
 def likert_scale_question_3(data):
 	for i in clean_up_2:
 		data[i].replace(to_replace = 12.0, value = 10.0, inplace = True)
