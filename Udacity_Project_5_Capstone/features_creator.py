@@ -111,6 +111,10 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
+feature_space = ['iid', 'gender', 'age', 'zipcode', 'race', 'imprace', 'imprelig', 'like', 'prob', 'goal', 'go_out', 'date','field_cd', 'career_c', 'exphappy', 'met'] + clean_up_1[0:6] + clean_up_1[18:] + clean_up_2[0:5] + features_of_attraction + interests + ['pid', 'order','age_o', 'race_o', 'samerace', 'like_o', 'prob_o', 'int_corr', 'dec_o', 'met_o'] + preferences_of_attraction + rating_by_partner_features
+all_space = feature_space + ['dec', 'match']
+################################################
+################################################
 list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_5 + clean_up_6 + halfway_questions + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
 ################################################
 ################################################
@@ -136,6 +140,8 @@ if __name__ == '__main__':
 	print 'rating_by_partner_features', '\n', rating_by_partner_features, '\n'
 	print 'halfway_questions', '\n', halfway_questions, '\n'
 	print 'interests', '\n', interests, '\n'
+	print 'feature_space', '\n', feature_space, '\n'
+	print 'all_space', '\n', all_space, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
 ################################################
 ################################################
@@ -180,6 +186,12 @@ def sat_to_float(data):
 	return data.update(sat_lister)
 ################################################
 ################################################
+def zipcode_to_float(data):
+	zipcode_lister = np.array([float(''.join(str(i).split(','))) for i in data['zipcode']])
+	zipcode_lister = pd.DataFrame(data = zipcode_lister, columns = ['zipcode'])
+	return data.update(zipcode_lister)
+################################################
+################################################
 def likert_scale_question_3(data):
 	for i in clean_up_2:
 		data[i].replace(to_replace = 12.0, value = 10.0, inplace = True)
@@ -188,6 +200,11 @@ def likert_scale_question_3(data):
 def scale_majority_of_features(data):
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
+
+################################################
+################################################
+def scale_exphappy(data):
+	data['exphappy'] = (data['exphappy'] - data['exphappy'].min()) / (data['exphappy'].max() - data['exphappy'].min())
 ################################################
 ################################################
 def count_samples_in_features(data):
