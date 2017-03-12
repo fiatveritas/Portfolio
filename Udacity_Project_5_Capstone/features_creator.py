@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import sklearn
+import seaborn as sns
+import matplotlib.pyplot as plt
 from IPython.display import display
 ################################################Set up questions asked repeatedly through event
 ################################################
@@ -210,3 +212,14 @@ def scale_exphappy(data):
 def count_samples_in_features(data):
 	for i, j in zip(data.keys(),data.count()):
 		print '\t', i, j, '\t',
+################################################
+################################################
+def make_corr(data):
+	sns.set(style="white")
+	corr = data.corr()
+	mask = np.zeros_like(corr, dtype = np.bool)
+	mask[np.triu_indices_from(mask)] = True
+	f, ax = plt.subplots(figsize = (22, 18))
+	cmap = sns.diverging_palette(220, 10, as_cmap = True)
+	sns.heatmap(corr, mask = mask, cmap = cmap, vmax = .3, 
+		square = True, xticklabels = 5, yticklabels = 5, linewidths = 1, cbar_kws = {"shrink": .5}, ax = ax)
