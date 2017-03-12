@@ -202,7 +202,6 @@ def likert_scale_question_3(data):
 def scale_majority_of_features(data):
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
-
 ################################################
 ################################################
 def scale_exphappy(data):
