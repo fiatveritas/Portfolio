@@ -8,7 +8,7 @@ This project requires:
 * [Pandas 0.18.0](https://pypi.python.org/pypi/pandas/0.18.0/)
 * [NumPy 1.10.4](http://www.scipy.org/scipylib/download.html)
 * [SciKit 0.17.1](https://pypi.python.org/pypi/scikit-learn/0.17.1)
-* [matplotlib](http://matplotlib.org/)
+* [matplotlib 1.5.1.](http://matplotlib.org/)
 
 ####This project uses the [iPython Notebook](http://ipython.org/notebook.html) to run.
 
