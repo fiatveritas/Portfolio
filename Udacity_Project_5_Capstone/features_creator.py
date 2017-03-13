@@ -113,8 +113,8 @@ for i in range(2, 4):
 		actual_decisions.append(j + '7_' + str(i))
 ################################################
 ################################################
-feature_space = ['iid', 'gender', 'age', 'zipcode', 'race', 'imprace', 'imprelig', 'like', 'prob', 'goal', 'go_out', 'date','field_cd', 'career_c', 'exphappy', 'met'] + clean_up_1[0:6] + clean_up_1[18:] + clean_up_2[0:5] + features_of_attraction + interests + ['pid', 'order','age_o', 'race_o', 'samerace', 'like_o', 'prob_o', 'int_corr', 'dec_o', 'met_o'] + preferences_of_attraction + rating_by_partner_features
-all_space = feature_space + ['dec', 'match']
+feature_space = ['iid', 'gender', 'race', 'field_cd', 'career_c', 'zipcode', 'goal', 'met', 'go_out', 'date', 'age', 'imprace', 'imprelig', 'like', 'prob', 'exphappy'] + clean_up_1[0:6] + clean_up_1[18:] + clean_up_2[0:5] + features_of_attraction + interests + preferences_of_attraction + rating_by_partner_features + ['age_o', 'like_o', 'prob_o', 'int_corr', 'race_o', 'samerace', 'pid', 'order', 'met_o']
+all_space = feature_space + ['dec', 'dec_o', 'match']
 ################################################
 ################################################
 list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_5 + clean_up_6 + halfway_questions + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
@@ -222,5 +222,30 @@ def make_corr(data):
 	cmap = sns.diverging_palette(255, 140, as_cmap = True)
 	sns.heatmap(corr, mask = mask, cmap = cmap, vmax = .3, 
 		square = True, xticklabels = 5, yticklabels = 5, linewidths = 1, cbar_kws = {"shrink": .5}, ax = ax)
-
-#cmap = sns.diverging_palette(220, 10, as_cmap = True)
+################################################
+################################################
+def outlier_detection(data):
+	index_count = {}
+	for feature in data[feature_space[10:72]].keys():
+		Q1, Q3 = data[feature].quantile(q = [.25, .75])
+		step = 1.5 * (Q3 - Q1)
+		for counter in data[~((data[feature] >= Q1 - step) & (data[feature] <= Q3 + step))].index.values:
+			if counter not in index_count:
+				index_count[counter] = 1
+			else:
+				index_count[counter] += 1
+	repeated_values = {key:value for key, value in index_count.items() if value >= 2}
+	list_of_tuple = [(j, i) for i, j in repeated_values.iteritems()]
+	list_of_tuple.sort()
+	list_of_tuple.reverse()
+	holder = 0
+	to_be_removed = []
+	for i, j in repeated_values.iteritems():
+		if j > 15:
+			holder += 1
+			to_be_removed.append(i)
+			#print (i, j),
+	#print str(holder), str(holder / 4771.0 *100), '%'
+	return to_be_removed
+	#print list_of_tuple, 'length of list is {}'.format(len(list_of_tuple))
+	#return data.drop(data.index[outliers])
