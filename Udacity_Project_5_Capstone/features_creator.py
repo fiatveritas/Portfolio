@@ -148,7 +148,7 @@ if __name__ == '__main__':
 ################################################
 ################################################
 def dating_attributes_vs_time_describe(data, gender):
-	for i, j in master_list.iteritems():
+	for i, j in data_cleaner.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
 		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
@@ -277,9 +277,9 @@ def forests(input_df, target_df):
 	################################################
 	################################################
 	rank_number = 0
-	print 'ExtraTreesClassifier', '\t'*5, 'RandomForestClassifier'
-	print 'Old Space: ', original_space, '\t'*5, 'Old Space:', original_space
-	print 'New Space: ', new_space_ETC, '\t'*5, 'New Space:', new_space_RFC
+	print 'ExtraTreesClassifier', '\t'*4, 'RandomForestClassifier'
+	print 'Old Space: ', original_space, '\t'*4, 'Old Space:', original_space
+	print 'New Space: ', new_space_ETC, '\t'*4, 'New Space:', new_space_RFC
 	for i, j in zip(tuple_holder, tuple_holder_2):
 		rank_number += 1
-		print rank_number, '|', i, '\t'*4, rank_number, '|', j
+		print rank_number, '|', i, '\t'*3, rank_number, '|', j
