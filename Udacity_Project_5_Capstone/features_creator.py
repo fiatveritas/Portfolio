@@ -249,3 +249,37 @@ def outlier_detection(data):
 	return to_be_removed
 	#print list_of_tuple, 'length of list is {}'.format(len(list_of_tuple))
 	#return data.drop(data.index[outliers])
+################################################
+################################################
+def forests(input_df, target_df):
+	from sklearn.ensemble import ExtraTreesClassifier
+	from sklearn.feature_selection import SelectFromModel
+	clf = ExtraTreesClassifier(random_state = 0)
+	clf = clf.fit(input_df, target_df)
+	model = SelectFromModel(clf, prefit=True)
+	input_df_new = model.transform(input_df)
+	original_space = input_df.shape
+	new_space_ETC = input_df_new.shape
+	tuple_holder = [(j, i) for i, j in zip(feature_space, clf.feature_importances_)]
+	tuple_holder.sort()
+	tuple_holder.reverse()
+	################################################
+	################################################
+	from sklearn.ensemble import RandomForestClassifier
+	clf = RandomForestClassifier(random_state = 0)
+	clf = clf.fit(input_df, target_df)
+	model = SelectFromModel(clf, prefit=True)
+	input_df_new = model.transform(input_df)
+	new_space_RFC = input_df_new.shape
+	tuple_holder_2 = [(j, i) for i, j in zip(feature_space, clf.feature_importances_)]
+	tuple_holder_2.sort()
+	tuple_holder_2.reverse()
+	################################################
+	################################################
+	rank_number = 0
+	print 'ExtraTreesClassifier', '\t'*5, 'RandomForestClassifier'
+	print 'Old Space: ', original_space, '\t'*5, 'Old Space:', original_space
+	print 'New Space: ', new_space_ETC, '\t'*5, 'New Space:', new_space_RFC
+	for i, j in zip(tuple_holder, tuple_holder_2):
+		rank_number += 1
+		print rank_number, '|', i, '\t'*4, rank_number, '|', j
