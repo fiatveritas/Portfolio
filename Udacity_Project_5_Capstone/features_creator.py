@@ -220,6 +220,14 @@ def scale_rating_received(data):
 	for j in rating_by_partner_features:
 		data[j] /= summation
 		data[j] *= 100
+
+################################################
+################################################
+def scale_rating_given(data):
+	summation = data[features_of_attraction].sum(axis = 1).copy()
+	for j in features_of_attraction:
+		data[j] /= summation
+		data[j] *= 100
 ################################################
 ################################################
 def dating_attributes_vs_time_describe(data, gender):
