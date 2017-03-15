@@ -107,6 +107,18 @@ clean_up_6 = clean_up_6[:6] + clean_up_6[12:]
 del clean_up_6[-1]
 ################################################
 ################################################
+to_do_list = [['attr3_1', 'sinc3_1', 'intel3_1', 'fun3_1', 'amb3_1'], 
+['attr3_2', 'sinc3_2', 'intel3_2', 'fun3_2', 'amb3_2'], 
+['attr3_3', 'sinc3_3', 'intel3_3', 'fun3_3', 'amb3_3']]
+to_do_list_2 = [['attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1'],
+['attr4_2', 'sinc4_2', 'intel4_2', 'fun4_2', 'amb4_2', 'shar4_2'],
+['attr4_3', 'sinc4_3', 'intel4_3', 'fun4_3', 'amb4_3', 'shar4_3'],
+['attr2_3', 'sinc2_3', 'intel2_3', 'fun2_3', 'amb2_3', 'shar2_3']]
+to_do_list_3 = [['attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1'],
+['attr5_2', 'sinc5_2', 'intel5_2', 'fun5_2', 'amb5_2'],
+['attr5_3', 'sinc5_3', 'intel5_3', 'fun5_3', 'amb5_3']]
+################################################
+################################################
 actual_decisions = []
 for i in range(2, 4):
 	for j in features_of_attraction:
@@ -117,7 +129,7 @@ feature_space = ['iid', 'gender', 'race', 'field_cd', 'career_c', 'zipcode', 'go
 all_space = feature_space + ['dec', 'dec_o', 'match']
 ################################################
 ################################################
-list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_5 + clean_up_6 + halfway_questions + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
+list_of_lists = clean_up_1 + clean_up_2 + clean_up_3 + clean_up_4 + clean_up_5 + clean_up_6 + halfway_questions + actual_decisions + features_of_attraction + rating_by_partner_features + preferences_of_attraction + ['like_o', 'prob_o', 'imprace', 'imprelig', 'like', 'prob', 'exphappy', 'expnum', 'match_es', 'satis_2', 'you_call', 'them_cal', 'numdat_3', 'num_in_3'] + interests
 ################################################
 ################################################
 if __name__ == '__main__':
@@ -142,32 +154,12 @@ if __name__ == '__main__':
 	print 'rating_by_partner_features', '\n', rating_by_partner_features, '\n'
 	print 'halfway_questions', '\n', halfway_questions, '\n'
 	print 'interests', '\n', interests, '\n'
+	print 'to_do_list', '\n', to_do_list, '\n'
 	print 'feature_space', '\n', feature_space, '\n'
 	print 'all_space', '\n', all_space, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
-################################################
-################################################
-def dating_attributes_vs_time_describe(data, gender):
-	for i, j in data_cleaner.iteritems():
-		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
-		new_frame = stuff[stuff['gender'] == gender].copy()
-		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
-		display(new_frame.describe())
-################################################
-################################################
-def dating_attributes_vs_time_hist(data, gender):
-	for i, j in master_list.iteritems():
-		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
-		new_frame = stuff[stuff['gender'] == gender].copy()
-		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
-		new_frame.plot(kind = 'hist', stacked = True, bins = 10)
-################################################
-################################################
-def scale_question_4(data):
-	new_frame = pd.DataFrame((data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4] - data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].min()) / (data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].max() - data[(data['wave'] >= 6) & (data['wave'] <= 9)][clean_up_4].min()))
-	new_frame_2 = pd.DataFrame((data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4] - data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].min()) / (data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].max() - data[(data['wave'] >= 10) & (data['wave'] <= 21)][clean_up_4].min()))
-	result = pd.concat([new_frame, new_frame_2])
-	return data.update(result)
+	for i, j in to_do_list.iteritems():
+		print i, type(j)
 ################################################
 ################################################
 def convert_income_to_float(data):
@@ -199,6 +191,46 @@ def likert_scale_question_3(data):
 		data[i].replace(to_replace = 12.0, value = 10.0, inplace = True)
 ################################################
 ################################################
+def scale_question_3(data):
+	for i in to_do_list:
+		summation = data[i].sum(axis = 1).copy()
+		for j in i:
+			data[j] /= summation
+			data[j] *= 100
+################################################
+################################################
+def scale_question_4(data):
+	for i in to_do_list_2:
+		summation = data[i].sum(axis = 1).copy()
+		for j in i:
+			data[j] /= summation
+			data[j] *= 100
+################################################
+################################################
+def scale_question_5(data):
+	for i in to_do_list_3:
+		summation = data[i].sum(axis = 1).copy()
+		for j in i:
+			data[j] /= summation
+			data[j] *= 100
+################################################
+################################################
+def dating_attributes_vs_time_describe(data, gender):
+	for i, j in data_cleaner.iteritems():
+		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
+		new_frame = stuff[stuff['gender'] == gender].copy()
+		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
+		display(new_frame.describe())
+################################################
+################################################
+def dating_attributes_vs_time_hist(data, gender):
+	for i, j in master_list.iteritems():
+		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
+		new_frame = stuff[stuff['gender'] == gender].copy()
+		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
+		new_frame.plot(kind = 'hist', stacked = True, bins = 10)
+################################################
+################################################
 def scale_majority_of_features(data):
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
@@ -210,7 +242,7 @@ def scale_exphappy(data):
 ################################################
 def count_samples_in_features(data):
 	for i, j in zip(data.keys(),data.count()):
-		print '\t', i, j, '\t',
+		print i, j, '||',
 ################################################
 ################################################
 def make_corr(data):
