@@ -215,6 +215,13 @@ def scale_question_5(data):
 			data[j] *= 100
 ################################################
 ################################################
+def scale_rating_received(data):
+	summation = data[rating_by_partner_features].sum(axis = 1).copy()
+	for j in rating_by_partner_features:
+		data[j] /= summation
+		data[j] *= 100
+################################################
+################################################
 def dating_attributes_vs_time_describe(data, gender):
 	for i, j in data_cleaner.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
