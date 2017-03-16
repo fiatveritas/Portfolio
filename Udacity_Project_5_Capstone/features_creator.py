@@ -235,7 +235,7 @@ def scale_half_way(data):
 	summation = data[to_do_list_4].sum(axis = 1).copy()
 	for j in to_do_list_4:
 		data[j] /= summation
-		data[j] *= 100		
+		data[j] *= 100
 ################################################
 ################################################
 def dating_attributes_vs_time_describe(data, gender):
