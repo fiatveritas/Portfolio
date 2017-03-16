@@ -118,6 +118,11 @@ to_do_list_3 = [['attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1'],
 ['attr5_2', 'sinc5_2', 'intel5_2', 'fun5_2', 'amb5_2'],
 ['attr5_3', 'sinc5_3', 'intel5_3', 'fun5_3', 'amb5_3']]
 to_do_list_4 =  ['attr3_s', 'sinc3_s', 'intel3_s', 'fun3_s', 'amb3_s']
+to_do_list_5 = ['attr1_s', 'sinc1_s', 'intel1_s', 'fun1_s', 'amb1_s', 'shar1_s']
+to_do_list_6 = [['attr1_1', 'sinc1_1', 'intel1_1', 'fun1_1', 'amb1_1', 'shar1_1'], 
+['attr1_2', 'sinc1_2', 'intel1_2', 'fun1_2', 'amb1_2', 'shar1_2'],
+['attr1_3', 'sinc1_3', 'intel1_3', 'fun1_3', 'amb1_3', 'shar1_3'],
+['attr2_1', 'sinc2_1', 'intel2_1', 'fun2_1', 'amb2_1', 'shar2_1']]
 ################################################
 ################################################
 actual_decisions = []
@@ -159,8 +164,8 @@ if __name__ == '__main__':
 	print 'feature_space', '\n', feature_space, '\n'
 	print 'all_space', '\n', all_space, '\n'
 	print 'list_of_lists', '\n', list_of_lists, '\n'
-	for i, j in to_do_list.iteritems():
-		print i, type(j)
+	for i in to_do_list:
+		print i
 ################################################
 ################################################
 def convert_income_to_float(data):
@@ -216,6 +221,21 @@ def scale_question_5(data):
 			data[j] *= 100
 ################################################
 ################################################
+def scale_question_1(data):
+	for i in to_do_list_6:
+		summation = data[i].sum(axis = 1).copy()
+		for j in i:
+			data[j] /= summation
+			data[j] *= 100
+################################################
+################################################
+def scale_question_2(data):
+	summation = data[clean_up_5].sum(axis = 1).copy()
+	for j in clean_up_5:
+		data[j] /= summation
+		data[j] *= 100
+################################################
+################################################
 def scale_rating_received(data):
 	summation = data[rating_by_partner_features].sum(axis = 1).copy()
 	for j in rating_by_partner_features:
@@ -238,6 +258,22 @@ def scale_half_way(data):
 		data[j] *= 100
 ################################################
 ################################################
+def scale_half_way_2(data):
+	summation = data[to_do_list_5].sum(axis = 1).copy()
+	for j in to_do_list_5:
+		data[j] /= summation
+		data[j] *= 100
+################################################
+################################################
+def scale_majority_of_features(data):
+	for i in list_of_lists:
+		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
+################################################
+################################################
+def scale_exphappy(data):
+	data['exphappy'] = (data['exphappy'] - data['exphappy'].min()) / (data['exphappy'].max() - data['exphappy'].min())
+################################################
+################################################
 def dating_attributes_vs_time_describe(data, gender):
 	for i, j in data_cleaner.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
@@ -252,15 +288,6 @@ def dating_attributes_vs_time_hist(data, gender):
 		new_frame = stuff[stuff['gender'] == gender].copy()
 		new_frame.drop(labels = ['iid', 'gender', 'wave'], axis = 1, inplace = True)
 		new_frame.plot(kind = 'hist', stacked = True, bins = 10)
-################################################
-################################################
-def scale_majority_of_features(data):
-	for i in list_of_lists:
-		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
-################################################
-################################################
-def scale_exphappy(data):
-	data['exphappy'] = (data['exphappy'] - data['exphappy'].min()) / (data['exphappy'].max() - data['exphappy'].min())
 ################################################
 ################################################
 def count_samples_in_features(data):
