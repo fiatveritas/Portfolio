@@ -117,6 +117,7 @@ to_do_list_2 = [['attr4_1', 'sinc4_1', 'intel4_1', 'fun4_1', 'amb4_1', 'shar4_1'
 to_do_list_3 = [['attr5_1', 'sinc5_1', 'intel5_1', 'fun5_1', 'amb5_1'],
 ['attr5_2', 'sinc5_2', 'intel5_2', 'fun5_2', 'amb5_2'],
 ['attr5_3', 'sinc5_3', 'intel5_3', 'fun5_3', 'amb5_3']]
+to_do_list_4 =  ['attr3_s', 'sinc3_s', 'intel3_s', 'fun3_s', 'amb3_s']
 ################################################
 ################################################
 actual_decisions = []
@@ -228,6 +229,13 @@ def scale_rating_given(data):
 	for j in features_of_attraction:
 		data[j] /= summation
 		data[j] *= 100
+################################################
+################################################
+def scale_half_way(data):
+	summation = data[to_do_list_4].sum(axis = 1).copy()
+	for j in to_do_list_4:
+		data[j] /= summation
+		data[j] *= 100		
 ################################################
 ################################################
 def dating_attributes_vs_time_describe(data, gender):
