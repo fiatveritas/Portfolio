@@ -123,6 +123,8 @@ to_do_list_6 = [['attr1_1', 'sinc1_1', 'intel1_1', 'fun1_1', 'amb1_1', 'shar1_1'
 ['attr1_2', 'sinc1_2', 'intel1_2', 'fun1_2', 'amb1_2', 'shar1_2'],
 ['attr1_3', 'sinc1_3', 'intel1_3', 'fun1_3', 'amb1_3', 'shar1_3'],
 ['attr2_1', 'sinc2_1', 'intel2_1', 'fun2_1', 'amb2_1', 'shar2_1']]
+to_do_list_7 = [['attr7_2', 'sinc7_2', 'intel7_2', 'fun7_2', 'amb7_2', 'shar7_2'], 
+['attr7_3', 'sinc7_3', 'intel7_3', 'fun7_3', 'amb7_3', 'shar7_3']]
 ################################################
 ################################################
 actual_decisions = []
@@ -234,6 +236,14 @@ def scale_question_2(data):
 	for j in clean_up_5:
 		data[j] /= summation
 		data[j] *= 100
+################################################
+################################################
+def scale_question_7(data):
+	for i in to_do_list_7:
+		summation = data[i].sum(axis = 1).copy()
+		for j in i:
+			data[j] /= summation
+			data[j] *= 100
 ################################################
 ################################################
 def scale_rating_received(data):
