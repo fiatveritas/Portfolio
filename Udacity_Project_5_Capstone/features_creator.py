@@ -275,6 +275,10 @@ def scale_half_way_2(data):
 		data[j] *= 100
 ################################################
 ################################################
+def scale_age(data):
+	data['age'] = (data['age'] - data['age'].min()) / (data['age'].max() - data['age'].min())
+################################################
+################################################
 def scale_majority_of_features(data):
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
@@ -301,8 +305,11 @@ def dating_attributes_vs_time_hist(data, gender):
 ################################################
 ################################################
 def count_samples_in_features(data):
-	for i, j in zip(data.keys(),data.count()):
-		print i, j, '||',
+	local_list = [(j, i) for i, j in zip(data.keys(), data.count())]
+	local_list.sort()
+	local_list.reverse()
+	for i in local_list:
+		print i[1], i[0], '|||',
 ################################################
 ################################################
 def make_corr(data):
