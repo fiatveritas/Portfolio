@@ -382,29 +382,3 @@ def forests(input_df, target_df):
 	for i, j in zip(tuple_holder, tuple_holder_2):
 		rank_number += 1
 		print rank_number, '|', i, '\t'*3, rank_number, '|', j
-
-"""		
-from sklearn.grid_search import GridSearchCV
-from sklearn.metrics import make_scorer
-from sklearn import cross_validation
-from sklearn.metrics import f1_score
-from sklearn.svm import SVC
-num_train = int(.75 * transformed_pca.shape[0])
-
-# Set the number of testing points
-num_test = int(transformed_pca.shape[0] - num_train)
-
-# TODO: Shuffle and split the dataset into the number of training and testing points above
-X_train, X_test, y_train, y_test = cross_validation.train_test_split(transformed_pca, target_df, test_size = num_test, random_state = 1)
-parameters = [{'C' : [pow(10, c) for c in range(-3, 3)], 'kernel' : ['linear']},
-              {'C' : [pow(2, c) for c in range(-6, 12)], 'kernel' : ['rbf'], 'gamma': [pow(2, c) for c in range(-6, 12)]},
-              {'C' : [pow(2, c) for c in range(-6, 12)], 'kernel' : ['sigmoid'], 'gamma': [pow(2, c) for c in range(-6, 12)]}]
-clf = SVC(random_state = 1)
-f1_scorer = make_scorer(f1_score, pos_label = 1)
-grid_obj = GridSearchCV(clf, parameters, cv = 10, scoring = f1_scorer)
-grid_obj = grid_obj.fit(transformed_pca, target_df)
-clf = grid_obj.best_estimator_
-print grid_obj.best_params_
-print "Tuned model has a training F1 score of {:.4f}.".format(predict_labels(clf, X_train, y_train))
-print "Tuned model has a testing F1 score of {:.4f}.".format(predict_labels(clf, X_test, y_test))
-"""
