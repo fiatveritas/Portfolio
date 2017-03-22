@@ -399,9 +399,9 @@ def pca_plotter(transformed_pca, target_df):
 	ax.set_xlabel('x')
 	ax.set_ylabel('y')
 	ax.set_zlabel('z')
-	#for ii in xrange(0,360,15):
-	#	ax.view_init(elev=10., azim=ii)
-	#	plt.savefig("movie%d.png" % ii)
+	#for ii in xrange(0,360,5):
+	#	ax.view_init(elev=ii, azim=10)
+	#	plt.savefig("movie_2%d.png" % ii)
 	#	plt.draw()
 	plt.show()
 
