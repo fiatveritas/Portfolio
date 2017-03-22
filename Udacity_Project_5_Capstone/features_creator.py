@@ -382,3 +382,44 @@ def forests(input_df, target_df):
 	for i, j in zip(tuple_holder, tuple_holder_2):
 		rank_number += 1
 		print rank_number, '|', i, '\t'*3, rank_number, '|', j
+################################################
+################################################
+def pca_plotter(transformed_pca, target_df):
+	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
+	new_target_df.reset_index(inplace = True)
+	new_target_df.drop('index', axis = 1, inplace = True)
+
+	no_decision = new_target_df[new_target_df['dec'] == 0].index
+	yes_decision = new_target_df[new_target_df['dec'] == 1].index
+
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection = '3d')
+	ax.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], c = 'blue')
+	ax.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], c = 'red')
+	ax.set_xlabel('x')
+	ax.set_ylabel('y')
+	ax.set_zlabel('z')
+	#for ii in xrange(0,360,15):
+	#	ax.view_init(elev=10., azim=ii)
+	#	plt.savefig("movie%d.png" % ii)
+	#	plt.draw()
+	plt.show()
+
+	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], color = 'blue')
+	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], color = 'red')
+	ax.set_xlabel('x')
+	ax.set_ylabel('y')
+	plt.show()
+
+	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
+	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
+	ax.set_xlabel('x')
+	ax.set_ylabel('z')
+	plt.show()
+
+	plt.scatter(transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
+	plt.scatter(transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
+	ax.set_xlabel('y')
+	ax.set_ylabel('z')
+
+	plt.show()
