@@ -431,24 +431,30 @@ def linear_classifier(input_df, target_df):
 	from sklearn.grid_search import GridSearchCV
 	from sklearn.metrics import accuracy_score, classification_report, f1_score, make_scorer
 
-	display(input_df)
+	#display(input_df)
 	num_train = int(.75 * input_df.shape[0])
 	num_test = int(input_df.shape[0] - num_train)
 	X_train, X_test, y_train, y_test = cross_validation.train_test_split(input_df, target_df, test_size = num_test, random_state = 0)
 
 	svc = svm.SVC(kernel = 'linear')
 	f1_scorer = make_scorer(f1_score, pos_label = 1)
-	parameters = {'C' : np.logspace(-1, 1, num = 2)}
+	parameters = [{'C' : np.logspace(-2, 2, num = 10)}]
 	print parameters
 	svc = GridSearchCV(estimator = svc, param_grid = parameters, scoring = f1_scorer, cv = 10)
 	svc.fit(X_train, y_train)
 
-	print 'support_vectors_: ', svc.support_vectors_
-	print 'Weights for features: ', svc.coef_
-	print 'Number of support vectors for each class: ', svc.n_support_
+	print 'Best f1_score: ', svc.best_score_ 
+	print 'Best C: ', svc.best_params_
+	print 'Best Estimator: ', svc.best_estimator_
 
-	y_pred = clf.predict(X_test)
+	print 'Retrain on Best C'
+	svc = svm.SVC(kernel = 'linear', C = 35.938136638046259)
+	svc.fit(X_train, y_train)
+
+	print 'Coefficients: ', svc.coef_
+	print 'Intercept: ', svc.intercept_
+
+	y_pred = svc.predict(X_test)
 	print 'Test Size: ', X_test.shape[0]
 	print 'Accuracy:' , accuracy_score(y_test, y_pred)
 	print classification_report(y_test, y_pred)
-	return 0
