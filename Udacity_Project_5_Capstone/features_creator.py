@@ -438,7 +438,7 @@ def linear_classifier(input_df, target_df):
 
 	svc = svm.SVC(kernel = 'linear')
 	f1_scorer = make_scorer(f1_score, pos_label = 1)
-	parameters = [{'C' : np.logspace(-5, 5, num = 10)}]
+	parameters = {'C' : np.logspace(-1, 1, num = 2)}
 	print parameters
 	svc = GridSearchCV(estimator = svc, param_grid = parameters, scoring = f1_scorer, cv = 10)
 	svc.fit(X_train, y_train)
