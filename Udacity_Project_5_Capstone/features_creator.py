@@ -463,8 +463,10 @@ def linear_classifier(input_df, target_df):
 	print 'Best C: ', svc.best_params_
 	print 'Best Estimator: ', svc.best_estimator_
 
-	print 'Retrain on Best C'
-	svc = svm.SVC(kernel = 'linear', C = 35.938136638046259, random_state = 0)
+	C = svc.best_params_['C']
+
+	print 'Retrain on Best C: ', str(C)
+	svc = svm.SVC(kernel = 'linear', C = C, random_state = 0)
 	svc.fit(X_train, y_train)
 
 	print 'Coefficients: ', svc.coef_
