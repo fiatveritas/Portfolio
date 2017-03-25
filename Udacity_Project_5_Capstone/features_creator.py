@@ -384,6 +384,22 @@ def forests(input_df, target_df):
 		print rank_number, '|', i, '\t'*3, rank_number, '|', j
 ################################################
 ################################################
+def f_classifier_selection(input_df, target_df):
+	from sklearn.feature_selection import SelectKBest
+	from sklearn.feature_selection import f_classif
+	kBest = SelectKBest(f_classif, k = 'all')
+	kBest.fit_transform(input_df, target_df)
+	k_Best_features = [(j, i, k) for i, j, k in zip(input_df.keys(), kBest.scores_, kBest.pvalues_)]
+	k_Best_features.sort()
+	k_Best_features.reverse()
+	counter = 0
+	print 'SelectKBest: f_classif'
+	for i in k_Best_features:
+		counter += 1
+		print counter, i
+
+################################################
+################################################
 def pca_plotter(transformed_pca, target_df):
 	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
@@ -436,7 +452,7 @@ def linear_classifier(input_df, target_df):
 	num_test = int(input_df.shape[0] - num_train)
 	X_train, X_test, y_train, y_test = cross_validation.train_test_split(input_df, target_df, test_size = num_test, random_state = 0)
 
-	svc = svm.SVC(kernel = 'linear')
+	svc = svm.SVC(kernel = 'linear', random_state = 0)
 	f1_scorer = make_scorer(f1_score, pos_label = 1)
 	parameters = [{'C' : np.logspace(-2, 2, num = 10)}]
 	print parameters
@@ -448,7 +464,7 @@ def linear_classifier(input_df, target_df):
 	print 'Best Estimator: ', svc.best_estimator_
 
 	print 'Retrain on Best C'
-	svc = svm.SVC(kernel = 'linear', C = 35.938136638046259)
+	svc = svm.SVC(kernel = 'linear', C = 35.938136638046259, random_state = 0)
 	svc.fit(X_train, y_train)
 
 	print 'Coefficients: ', svc.coef_
