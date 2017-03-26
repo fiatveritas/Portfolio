@@ -441,6 +441,40 @@ def pca_plotter(transformed_pca, target_df):
 	plt.show()
 ################################################
 ################################################
+def apply_nearest_neighbor(input_df, target_df):
+	from sklearn.decomposition import pca
+	from sklearn.grid_search import GridSearchCV
+	from sklearn.metrics import make_scorer
+	from sklearn import cross_validation
+	from sklearn.metrics import f1_score
+	from sklearn import neighbors
+	from sklearn.neighbors import KNeighborsClassifier
+
+	new_input_df = input_df.copy()
+	transformed_new_input_df = pca.fit_transform(X = new_input_df, y = target_df)
+	transformed_pca = pd.DataFrame(transformed_new_input_df, columns = ['x_s', 'y_s', 'z_s'])
+	num_train = int(.75 * transformed_pca.shape[0])
+	num_test = int(transformed_pca.shape[0] - num_train)
+
+	print 'Training set size: ', num_train, 'Test set size: ', num_test
+
+	X_train, X_test, y_train, y_test = cross_validation.train_test_split(transformed_pca, target_df, test_size = num_test, random_state = 0)
+	f1_scorer = make_scorer(f1_score, pos_label = 1)
+	parameters = [{'n_neighbors' : range(1,101)}]
+	clf = neighbors.KNeighborsClassifier()
+	clf = GridSearchCV(estimator = clf, param_grid = parameters, scoring = f1_scorer, cv = 10)
+	clf.fit(X_train, y_train)
+	print 'Best f1_score: ', clf.best_score_ 
+	print 'With neighboors at: ', clf.best_params_
+	print 'Best Estimator: ', clf.best_estimator_
+
+	from sklearn.metrics import accuracy_score, classification_report
+	y_pred = clf.predict(X_test)
+	print 'Test Size: ', X_test.shape[0]
+	print 'Accuracy:' , accuracy_score(y_test, y_pred)
+	print classification_report(y_test, y_pred)
+################################################
+################################################
 def linear_classifier(input_df, target_df):
 	import numpy as np
 	from sklearn import svm, cross_validation
