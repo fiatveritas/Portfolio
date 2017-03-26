@@ -397,7 +397,21 @@ def f_classifier_selection(input_df, target_df):
 	for i in k_Best_features:
 		counter += 1
 		print counter, i
-
+################################################
+################################################
+def chi_feature_selection(new_input_df, target_df):
+	from sklearn.feature_selection import chi2
+	from sklearn.feature_selection import SelectKBest
+	kBest = SelectKBest(chi2, k = 'all')
+	kBest.fit_transform(new_input_df, target_df)
+	k_Best_features = [(j, i, k) for i, j, k in zip(new_input_df, kBest.scores_, kBest.pvalues_)]
+	k_Best_features.sort()
+	k_Best_features.reverse()
+	counter = 0
+	print 'SelectKBest: chi2'
+	for i in k_Best_features:
+		counter += 1
+		print counter, i
 ################################################
 ################################################
 def pca_plotter(transformed_pca, target_df):
