@@ -426,9 +426,9 @@ def pca_plotter(transformed_pca, target_df):
 	ax = fig.add_subplot(111, projection = '3d')
 	ax.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], c = 'blue')
 	ax.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], c = 'red')
-	ax.set_xlabel('x')
-	ax.set_ylabel('y')
-	ax.set_zlabel('z')
+	ax.set_xlabel('pca_1')
+	ax.set_ylabel('pca_2')
+	ax.set_zlabel('pca_3')
 	#for ii in xrange(0,360,5):
 	#	ax.view_init(elev=ii, azim=10)
 	#	plt.savefig("movie_2%d.png" % ii)
@@ -437,20 +437,20 @@ def pca_plotter(transformed_pca, target_df):
 
 	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], color = 'red')
-	ax.set_xlabel('x')
-	ax.set_ylabel('y')
+	ax.set_xlabel('pca_1')
+	ax.set_ylabel('pca_2')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
-	ax.set_xlabel('x')
-	ax.set_ylabel('z')
+	ax.set_xlabel('pca_1')
+	ax.set_ylabel('pca_3')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
-	ax.set_xlabel('y')
-	ax.set_ylabel('z')
+	ax.set_xlabel('pca_2')
+	ax.set_ylabel('pca_3')
 
 	plt.show()
 ################################################
@@ -481,17 +481,6 @@ def apply_nearest_neighbor(transformed_pca, target_df):
 	print 'With neighboors at: ', clf.best_params_
 	print 'Best Estimator: ', clf.best_estimator_
 
-	y_pred = clf.predict(X_test)
-	print 'Test Size: ', X_test.shape[0]
-	print 'Accuracy:' , accuracy_score(y_test, y_pred)
-	print classification_report(y_test, y_pred)
-	
-	print '\nRetrain on k = ', clf.best_params_['n_neighbors'], 'neighbors.'
-	clf = neighbors.KNeighborsClassifier(n_neighbors = clf.best_params_['n_neighbors'])
-	clf.fit(X_train, y_train)
-	print 'Best f1_score: ', clf.best_score_ 
-	print 'With neighboors at: ', clf.best_params_
-	print 'Best Estimator: ', clf.best_estimator_
 	y_pred = clf.predict(X_test)
 	print 'Test Size: ', X_test.shape[0]
 	print 'Accuracy:' , accuracy_score(y_test, y_pred)
