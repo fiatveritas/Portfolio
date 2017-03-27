@@ -485,6 +485,17 @@ def apply_nearest_neighbor(transformed_pca, target_df):
 	print 'Test Size: ', X_test.shape[0]
 	print 'Accuracy:' , accuracy_score(y_test, y_pred)
 	print classification_report(y_test, y_pred)
+	
+	print '\nRetrain on k = ', clf.best_params_['n_neighbors'], 'neighbors.'
+	clf = neighbors.KNeighborsClassifier(n_neighbors = clf.best_params_['n_neighbors'])
+	clf.fit(X_train, y_train)
+	print 'Best f1_score: ', clf.best_score_ 
+	print 'With neighboors at: ', clf.best_params_
+	print 'Best Estimator: ', clf.best_estimator_
+	y_pred = clf.predict(X_test)
+	print 'Test Size: ', X_test.shape[0]
+	print 'Accuracy:' , accuracy_score(y_test, y_pred)
+	print classification_report(y_test, y_pred)
 ################################################
 ################################################
 def linear_classifier(input_df, target_df):
