@@ -414,6 +414,33 @@ def chi_feature_selection(new_input_df, target_df):
 		print counter, i
 ################################################
 ################################################
+def explained_ratio_pca(new_input_df):
+	from sklearn.decomposition import PCA
+	total_ratio = []
+	for i in range(1, 9):
+		pca = PCA(n_components = i)
+		pca.fit(new_input_df)
+		#print 'n = ', str(i), ', ', 'Total Ratio: ', pca.explained_variance_ratio_.sum()
+		#print 'Components:', pca.components_
+		#print 'Explained Variance:', pca.explained_variance_ 
+		#print 'Explained Ratio: ', pca.explained_variance_ratio_
+		total_ratio.append(pca.explained_variance_ratio_.sum())
+
+	plt.figure(figsize = (20, 15))
+	plt.subplot(221)
+	#plt.bar(range(1,9), total_ratio, align='center', alpha = 1)
+	plt.plot(range(1,9), total_ratio, alpha = 1)
+	plt.xlabel('Projections')
+	plt.ylabel('Total Explained Ratio')
+	plt.title('Total Explained Ratio vs. Projections')
+
+	plt.show()
+	counter = 1
+	for i in total_ratio:
+		print 'n = ', counter, ', ', i
+		counter += 1		
+################################################
+################################################
 def pca_plotter(transformed_pca, target_df):
 	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
