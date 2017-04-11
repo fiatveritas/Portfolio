@@ -320,7 +320,7 @@ def make_corr(data):
 	f, ax = plt.subplots(figsize = (22, 18))
 	cmap = sns.diverging_palette(255, 140, as_cmap = True)
 	sns.heatmap(corr, mask = mask, cmap = cmap, vmax = .3, 
-		square = True, xticklabels = 5, yticklabels = 5, linewidths = 1, cbar_kws = {"shrink": .5}, ax = ax)
+		square = True, xticklabels = True, yticklabels = True, linewidths = 1, cbar_kws = {"shrink": .5}, ax = ax)
 ################################################
 ################################################
 def outlier_detection(data):
