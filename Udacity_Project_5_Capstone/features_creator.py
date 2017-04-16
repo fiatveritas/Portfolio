@@ -328,6 +328,7 @@ def dating_attributes_vs_time_hist(data, gender):
 def count_samples_in_features(data):
 	"""This method uses a native function to pandas, count(), and prints samples from greatest to lower number samples."""
 	local_list = [(j, i) for i, j in zip(data.keys(), data.count())]
+	print 'Total Number of features:', str(len(local_list))
 	local_list.sort()
 	local_list.reverse()
 	for i in local_list:
