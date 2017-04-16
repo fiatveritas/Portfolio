@@ -4,6 +4,7 @@ import sklearn
 import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import display
+#This File defines and creates variables used in ipynb file used for analysis
 ################################################Set up questions asked repeatedly through event
 ################################################
 list_of_question = ['what_you_want', 'you_think_opposite_wants', 'how_you_measure', 
@@ -171,35 +172,41 @@ if __name__ == '__main__':
 ################################################
 ################################################
 def convert_income_to_float(data):
+	"""this method converts income string data to float. expected input is a DataFrame or series"""
 	income_lister = np.array([float(''.join(str(i).split(','))) for i in data['income']])
 	income_lister = pd.DataFrame(data = income_lister, columns = ['income'])
 	return data.update(income_lister)
 ################################################
 ################################################
 def convert_tuition_to_float(data):
+	"""this method converts tuition string data to float. expected input is a DataFrame or series"""
 	tuition_lister = np.array([float(''.join(str(i).split(','))) for i in data['tuition']])
 	tuition_lister = pd.DataFrame(data = tuition_lister, columns = ['tuition'])
 	return data.update(tuition_lister)
 ################################################
 ################################################
 def sat_to_float(data):
+	"""this method converts SAT scores string data to float. expected input is a DataFrame or series"""
 	sat_lister = np.array([float(''.join(str(i).split(','))) for i in data['mn_sat']])
 	sat_lister = pd.DataFrame(data = sat_lister, columns = ['mn_sat'])
 	return data.update(sat_lister)
 ################################################
 ################################################
 def zipcode_to_float(data):
+	"""this method converts zipcode string data to float. Expected input is a DataFrame or series"""
 	zipcode_lister = np.array([float(''.join(str(i).split(','))) for i in data['zipcode']])
 	zipcode_lister = pd.DataFrame(data = zipcode_lister, columns = ['zipcode'])
 	return data.update(zipcode_lister)
 ################################################
 ################################################
 def likert_scale_question_3(data):
+	"""This method scales down values of 12 to 10. This value was the only one that violated defined ranges. Input is a series"""
 	for i in clean_up_2:
 		data[i].replace(to_replace = 12.0, value = 10.0, inplace = True)
 ################################################
 ################################################
 def scale_question_3(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	for i in to_do_list:
 		summation = data[i].sum(axis = 1).copy()
 		for j in i:
@@ -208,6 +215,7 @@ def scale_question_3(data):
 ################################################
 ################################################
 def scale_question_4(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	for i in to_do_list_2:
 		summation = data[i].sum(axis = 1).copy()
 		for j in i:
@@ -216,6 +224,7 @@ def scale_question_4(data):
 ################################################
 ################################################
 def scale_question_5(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	for i in to_do_list_3:
 		summation = data[i].sum(axis = 1).copy()
 		for j in i:
@@ -224,6 +233,7 @@ def scale_question_5(data):
 ################################################
 ################################################
 def scale_question_1(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	for i in to_do_list_6:
 		summation = data[i].sum(axis = 1).copy()
 		for j in i:
@@ -232,6 +242,7 @@ def scale_question_1(data):
 ################################################
 ################################################
 def scale_question_2(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	summation = data[clean_up_5].sum(axis = 1).copy()
 	for j in clean_up_5:
 		data[j] /= summation
@@ -239,6 +250,7 @@ def scale_question_2(data):
 ################################################
 ################################################
 def scale_question_7(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	for i in to_do_list_7:
 		summation = data[i].sum(axis = 1).copy()
 		for j in i:
@@ -247,6 +259,7 @@ def scale_question_7(data):
 ################################################
 ################################################
 def scale_rating_received(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	summation = data[rating_by_partner_features].sum(axis = 1).copy()
 	for j in rating_by_partner_features:
 		data[j] /= summation
@@ -255,6 +268,7 @@ def scale_rating_received(data):
 ################################################
 ################################################
 def scale_rating_given(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	summation = data[features_of_attraction].sum(axis = 1).copy()
 	for j in features_of_attraction:
 		data[j] /= summation
@@ -262,6 +276,7 @@ def scale_rating_given(data):
 ################################################
 ################################################
 def scale_half_way(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	summation = data[to_do_list_4].sum(axis = 1).copy()
 	for j in to_do_list_4:
 		data[j] /= summation
@@ -269,6 +284,7 @@ def scale_half_way(data):
 ################################################
 ################################################
 def scale_half_way_2(data):
+	"""This method scales from Likert scale to 0 - 100"""
 	summation = data[to_do_list_5].sum(axis = 1).copy()
 	for j in to_do_list_5:
 		data[j] /= summation
@@ -276,19 +292,23 @@ def scale_half_way_2(data):
 ################################################
 ################################################
 def scale_age(data):
+	"""This scales age values between 0 - 1."""
 	data['age'] = (data['age'] - data['age'].min()) / (data['age'].max() - data['age'].min())
 ################################################
 ################################################
 def scale_majority_of_features(data):
+	"""This scales majority of features values between 0 - 1."""
 	for i in list_of_lists:
 		data[i] = (data[i] - data[i].min()) / (data[i].max() - data[i].min())
 ################################################
 ################################################
 def scale_exphappy(data):
+	"""This scales expected happiness from dating to 0 - 1"""
 	data['exphappy'] = (data['exphappy'] - data['exphappy'].min()) / (data['exphappy'].max() - data['exphappy'].min())
 ################################################
 ################################################
 def dating_attributes_vs_time_describe(data, gender):
+	"""This method outputs basic stats such as min, max, mean, and STD"""
 	for i, j in data_cleaner.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
@@ -297,6 +317,7 @@ def dating_attributes_vs_time_describe(data, gender):
 ################################################
 ################################################
 def dating_attributes_vs_time_hist(data, gender):
+	"""This method ouputs a histograms of features over three different times."""
 	for i, j in master_list.iteritems():
 		stuff = pd.DataFrame(data = data.drop_duplicates(subset = 'iid', keep = 'first'), columns = ['iid', 'wave', 'gender'] + j)
 		new_frame = stuff[stuff['gender'] == gender].copy()
@@ -305,6 +326,7 @@ def dating_attributes_vs_time_hist(data, gender):
 ################################################
 ################################################
 def count_samples_in_features(data):
+	"""This method uses a native function to pandas, count(), and prints samples from greatest to lower number samples."""
 	local_list = [(j, i) for i, j in zip(data.keys(), data.count())]
 	local_list.sort()
 	local_list.reverse()
@@ -313,6 +335,7 @@ def count_samples_in_features(data):
 ################################################
 ################################################
 def make_corr(data):
+	"""This method creates a scatter, correlation matrix."""
 	sns.set(style="white")
 	corr = data.corr()
 	mask = np.zeros_like(corr, dtype = np.bool)
@@ -324,6 +347,7 @@ def make_corr(data):
 ################################################
 ################################################
 def outlier_detection(data):
+	"""Turkey's method to detect outliers. Choose 15 to be threshold of repeating outlier across features. This means if an outlier appears across 15 features it is to be removed later."""
 	index_count = {}
 	for feature in data[feature_space[10:72]].keys():
 		Q1, Q3 = data[feature].quantile(q = [.25, .75])
@@ -351,6 +375,7 @@ def outlier_detection(data):
 ################################################
 ################################################
 def forests(input_df, target_df):
+	"""This method implements two types of forest features selection. ExtraTreesClassifier & RandomForestClassifier. Features are ranked in order of importance."""
 	from sklearn.ensemble import ExtraTreesClassifier
 	from sklearn.feature_selection import SelectFromModel
 	clf = ExtraTreesClassifier(random_state = 0)
@@ -385,6 +410,7 @@ def forests(input_df, target_df):
 ################################################
 ################################################
 def f_classifier_selection(input_df, target_df):
+	"""This method uses f_test to select features. Prints features in order of importance."""
 	from sklearn.feature_selection import SelectKBest
 	from sklearn.feature_selection import f_classif
 	kBest = SelectKBest(f_classif, k = 'all')
@@ -400,6 +426,7 @@ def f_classifier_selection(input_df, target_df):
 ################################################
 ################################################
 def chi_feature_selection(new_input_df, target_df):
+	"""This method uses chi2 to select features. features passed in must be positive and between 0 - 1."""
 	from sklearn.feature_selection import chi2
 	from sklearn.feature_selection import SelectKBest
 	kBest = SelectKBest(chi2, k = 'all')
@@ -415,6 +442,7 @@ def chi_feature_selection(new_input_df, target_df):
 ################################################
 ################################################
 def explained_ratio_pca(new_input_df):
+	"""This method print a graph showing how varince is explain vs. number of projects on PCA space"""
 	from sklearn.decomposition import PCA
 	total_ratio = []
 	for i in range(1, 9):
@@ -442,6 +470,7 @@ def explained_ratio_pca(new_input_df):
 ################################################
 ################################################
 def pca_plotter(transformed_pca, target_df):
+	"""This method plots the transformed PCA dataset"""
 	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
 	new_target_df.drop('index', axis = 1, inplace = True)
@@ -483,6 +512,7 @@ def pca_plotter(transformed_pca, target_df):
 ################################################
 ################################################
 def apply_nearest_neighbor(transformed_pca, target_df):
+	"""This method applies nearest neighboor algorithm to PCA transformed data."""
 	from sklearn.decomposition import PCA
 	from sklearn.grid_search import GridSearchCV
 	from sklearn.metrics import make_scorer
@@ -515,6 +545,7 @@ def apply_nearest_neighbor(transformed_pca, target_df):
 ################################################
 ################################################
 def linear_classifier(input_df, target_df):
+	"""This method applies linear classifier for pca transformed data."""
 	import numpy as np
 	from sklearn import svm, cross_validation
 	from sklearn.grid_search import GridSearchCV
