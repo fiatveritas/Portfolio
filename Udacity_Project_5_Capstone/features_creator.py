@@ -581,3 +581,18 @@ def linear_classifier(input_df, target_df):
 	print 'Test Size: ', X_test.shape[0]
 	print 'Accuracy:' , accuracy_score(y_test, y_pred)
 	print classification_report(y_test, y_pred)
+def linear_plotter(linear_data, linear_df):
+	"""This method plots the transformed PCA dataset"""
+	new_target_df = pd.DataFrame(linear_df, columns = ['dec'])
+	new_target_df.reset_index(inplace = True)
+	new_target_df.drop('index', axis = 1, inplace = True)
+
+	no_decision = new_target_df[new_target_df['dec'] == 0].index
+	yes_decision = new_target_df[new_target_df['dec'] == 1].index
+
+	fig = plt.figure()
+	plt.scatter(linear_data.loc[no_decision]['x_s'], linear_data.loc[no_decision]['y_s'], color = 'blue')
+	plt.scatter(linear_data.loc[yes_decision]['x_s'], linear_data.loc[yes_decision]['y_s'], color = 'red')
+	plt.xlabel('pca_1')
+	plt.ylabel('pca_2')
+	plt.show()
