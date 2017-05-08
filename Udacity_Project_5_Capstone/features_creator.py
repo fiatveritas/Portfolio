@@ -494,20 +494,20 @@ def pca_plotter(transformed_pca, target_df):
 
 	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], color = 'red')
-	ax.set_xlabel('pca_1')
-	ax.set_ylabel('pca_2')
+	plt.xlabel('pca_1')
+	plt.ylabel('pca_2')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
-	ax.set_xlabel('pca_1')
-	ax.set_ylabel('pca_3')
+	plt.xlabel('pca_1')
+	plt.ylabel('pca_3')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
-	ax.set_xlabel('pca_2')
-	ax.set_ylabel('pca_3')
+	plt.xlabel('pca_2')
+	plt.ylabel('pca_3')
 
 	plt.show()
 ################################################
@@ -581,8 +581,34 @@ def linear_classifier(input_df, target_df):
 	print 'Test Size: ', X_test.shape[0]
 	print 'Accuracy:' , accuracy_score(y_test, y_pred)
 	print classification_report(y_test, y_pred)
+################################################
+################################################
 def linear_plotter(linear_data, linear_df):
 	"""This method plots the transformed PCA dataset"""
+	import numpy as np
+	from sklearn import svm, cross_validation
+	from sklearn.grid_search import GridSearchCV
+	from sklearn.metrics import accuracy_score, classification_report, f1_score, make_scorer
+
+	#display(input_df)
+	num_train = int(.75 * linear_df.shape[0])
+	num_test = int(linear_df.shape[0] - num_train)
+	X_train, X_test, y_train, y_test = cross_validation.train_test_split(linear_data, linear_df, test_size = num_test, random_state = 0)
+
+	svc = svm.SVC(kernel = 'linear', random_state = 0)
+	f1_scorer = make_scorer(f1_score, pos_label = 1)
+	parameters = [{'C' : np.logspace(-2, 2, num = 10)}]
+	svc = GridSearchCV(estimator = svc, param_grid = parameters, scoring = f1_scorer, cv = 10)
+	svc.fit(X_train, y_train)
+
+	C = svc.best_params_['C']
+
+	svc = svm.SVC(kernel = 'linear', C = C, random_state = 0)
+	svc.fit(X_train, y_train)
+
+	print svc.coef_[0][0]
+	print svc.intercept_
+
 	new_target_df = pd.DataFrame(linear_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
 	new_target_df.drop('index', axis = 1, inplace = True)
@@ -593,6 +619,16 @@ def linear_plotter(linear_data, linear_df):
 	fig = plt.figure()
 	plt.scatter(linear_data.loc[no_decision]['x_s'], linear_data.loc[no_decision]['y_s'], color = 'blue')
 	plt.scatter(linear_data.loc[yes_decision]['x_s'], linear_data.loc[yes_decision]['y_s'], color = 'red')
+	#plt.plot(linear_data.loc[no_decision]['x_s'], linear_data.loc[no_decision]['y_s'], color = 'blue')
+	#plt.plot(linear_data.loc[yes_decision]['x_s'], linear_data.loc[yes_decision]['y_s'], color = 'red')
 	plt.xlabel('pca_1')
 	plt.ylabel('pca_2')
-	plt.show()
+	#plt.show()
+
+	#plt.subplot(221)
+	plt.xlim((-1, 1))
+	plt.ylim((-1, 1))
+	x = np.linspace(-1, 1, num = 8000, endpoint = True)
+	y = svc.intercept_ + x * svc.coef_[0][0]
+	plt.plot(x, y, color = 'black')
+	
