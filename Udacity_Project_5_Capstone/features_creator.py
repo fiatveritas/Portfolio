@@ -606,8 +606,8 @@ def linear_plotter(linear_data, linear_df):
 	svc = svm.SVC(kernel = 'linear', C = C, random_state = 0)
 	svc.fit(X_train, y_train)
 
-	print svc.coef_[0][0]
-	print svc.intercept_
+	print 'slope: {}'.format(svc.coef_[0][0])
+	print 'intercept: {}'.format(svc.intercept_[0])
 
 	new_target_df = pd.DataFrame(linear_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
