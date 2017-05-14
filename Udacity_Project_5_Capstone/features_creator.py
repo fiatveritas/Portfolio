@@ -490,7 +490,8 @@ def pca_plotter(transformed_pca, target_df):
 
 	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
 	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
-	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'upper left')
+	#ax.view_init(elev=10, azim=225)
 	#for ii in xrange(0,360,5):
 	#	ax.view_init(elev=ii, azim=10)
 	#	plt.savefig("movie_2%d.png" % ii)
@@ -719,7 +720,7 @@ def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
 	green_patch = mpatches.Patch(color = 'green', label = 'Break Case: Yes')
 	yellow_patch = mpatches.Patch(color = 'yellow', label = 'Break Case: No')
 
-	plt.legend(handles = [red_patch, blue_patch, green_patch, yellow_patch], loc = 'lower right')
+	plt.legend(handles = [red_patch, blue_patch, green_patch, yellow_patch], loc = 'upper left')
 	plt.show()
 	######
 
