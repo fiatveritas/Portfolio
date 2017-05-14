@@ -676,10 +676,10 @@ def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
 
 	for i in new_test_yes:
 		target_yes_predict.append(clf.predict(i))
-		print 'Predictors:', i, 'Lables:', clf.predict(i)
+		#print 'Predictors:', i, 'Labels:', clf.predict(i)
 	for i in new_test_no:
 		target_no_predict.append(clf.predict(i))
-		print 'Predictors:', i, 'Lables:', clf.predict(i)
+		#print 'Predictors:', i, 'Labels:', clf.predict(i)
 	#This DataFrame has the test points
 	test_point_yes_df = pd.DataFrame(new_test_yes, columns = ['pca_1', 'pca_2', 'pca_3'])
 	test_point_no_df = pd.DataFrame(new_test_no, columns = ['pca_1', 'pca_2', 'pca_3'])
@@ -688,7 +688,7 @@ def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
 	combined_test_point_df = pd.concat([test_point_yes_df, test_point_no_df], axis = 0, ignore_index = True)
 	combined_target_point_df = pd.concat([target_yes_predict_df, target_no_predict_df], axis = 0, ignore_index = True)
 	test_to_plot_df = pd.concat([combined_test_point_df, combined_target_point_df], axis = 1)
-	display(test_to_plot_df)
+	#display(test_to_plot_df)
 
 	#Get index for yes and no decision, respectively.
 	no_decision = new_target_df[new_target_df['dec'] == 0].index
@@ -713,6 +713,13 @@ def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
 	#	ax.view_init(elev = 10, azim = ii)
 	#	plt.savefig("movie_9_%d.png" % ii)
 	#	plt.draw()
+
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	green_patch = mpatches.Patch(color = 'green', label = 'Break Case: Yes')
+	yellow_patch = mpatches.Patch(color = 'yellow', label = 'Break Case: No')
+
+	plt.legend(handles = [red_patch, blue_patch, green_patch, yellow_patch], loc = 'lower right')
 	plt.show()
 	######
 
@@ -732,3 +739,4 @@ def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
 	plt.legend(handles = [red_patch, blue_patch, green_patch, yellow_patch], loc = 'lower right')
 
 	plt.show()
+	return test_to_plot_df
