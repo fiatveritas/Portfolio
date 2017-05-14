@@ -472,6 +472,7 @@ def explained_ratio_pca(new_input_df):
 ################################################
 def pca_plotter(transformed_pca, target_df):
 	"""This method plots the transformed PCA dataset"""
+	import matplotlib.patches as mpatches
 	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
 	new_target_df.reset_index(inplace = True)
 	new_target_df.drop('index', axis = 1, inplace = True)
@@ -486,6 +487,10 @@ def pca_plotter(transformed_pca, target_df):
 	ax.set_xlabel('pca_1')
 	ax.set_ylabel('pca_2')
 	ax.set_zlabel('pca_3')
+
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
 	#for ii in xrange(0,360,5):
 	#	ax.view_init(elev=ii, azim=10)
 	#	plt.savefig("movie_2%d.png" % ii)
@@ -496,18 +501,27 @@ def pca_plotter(transformed_pca, target_df):
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], color = 'red')
 	plt.xlabel('pca_1')
 	plt.ylabel('pca_2')
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
 	plt.xlabel('pca_1')
 	plt.ylabel('pca_3')
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
 	plt.show()
 
 	plt.scatter(transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], color = 'blue')
 	plt.scatter(transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], color = 'red')
 	plt.xlabel('pca_2')
 	plt.ylabel('pca_3')
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
 
 	plt.show()
 ################################################
@@ -589,6 +603,7 @@ def linear_plotter(linear_data, linear_df):
 	from sklearn import svm, cross_validation
 	from sklearn.grid_search import GridSearchCV
 	from sklearn.metrics import accuracy_score, classification_report, f1_score, make_scorer
+	import matplotlib.patches as mpatches
 
 	#display(input_df)
 	num_train = int(.75 * linear_df.shape[0])
@@ -628,7 +643,92 @@ def linear_plotter(linear_data, linear_df):
 	#plt.subplot(221)
 	plt.xlim((-1, 1))
 	plt.ylim((-1, 1))
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	plt.legend(handles = [red_patch, blue_patch], loc = 'lower right')
 	x = np.linspace(-1, 1, num = 8000, endpoint = True)
 	y = svc.intercept_ + x * svc.coef_[0][0]
 	plt.plot(x, y, color = 'black')
-	
+################################################
+################################################
+def test_point_plotter(transformed_pca, target_df, new_test_yes, new_test_no):
+	from sklearn.grid_search import GridSearchCV
+	from sklearn.metrics import make_scorer
+	from sklearn import cross_validation
+	from sklearn.metrics import f1_score
+	from sklearn import neighbors
+	from sklearn.neighbors import KNeighborsClassifier
+	import matplotlib.patches as mpatches
+
+	target_yes_predict = []
+	target_no_predict = []
+
+    #This DataFrame defines the label for algorithm below
+	new_target_df = pd.DataFrame(target_df, columns = ['dec'])
+	new_target_df.reset_index(inplace = True)
+	new_target_df.drop('index', axis = 1, inplace = True)
+
+	f1_scorer = make_scorer(f1_score, pos_label = 1)
+	parameters = [{'n_neighbors' : range(1,101)}]
+	clf = neighbors.KNeighborsClassifier()
+	clf = GridSearchCV(estimator = clf, param_grid = parameters, scoring = f1_scorer, cv = 10)
+	clf.fit(transformed_pca, new_target_df['dec'])
+
+	for i in new_test_yes:
+		target_yes_predict.append(clf.predict(i))
+		print 'Predictors:', i, 'Lables:', clf.predict(i)
+	for i in new_test_no:
+		target_no_predict.append(clf.predict(i))
+		print 'Predictors:', i, 'Lables:', clf.predict(i)
+	#This DataFrame has the test points
+	test_point_yes_df = pd.DataFrame(new_test_yes, columns = ['pca_1', 'pca_2', 'pca_3'])
+	test_point_no_df = pd.DataFrame(new_test_no, columns = ['pca_1', 'pca_2', 'pca_3'])
+	target_yes_predict_df = pd.DataFrame(target_yes_predict, columns = ['dec'])
+	target_no_predict_df = pd.DataFrame(target_no_predict, columns = ['dec'])
+	combined_test_point_df = pd.concat([test_point_yes_df, test_point_no_df], axis = 0, ignore_index = True)
+	combined_target_point_df = pd.concat([target_yes_predict_df, target_no_predict_df], axis = 0, ignore_index = True)
+	test_to_plot_df = pd.concat([combined_test_point_df, combined_target_point_df], axis = 1)
+	display(test_to_plot_df)
+
+	#Get index for yes and no decision, respectively.
+	no_decision = new_target_df[new_target_df['dec'] == 0].index
+	yes_decision = new_target_df[new_target_df['dec'] == 1].index
+
+	break_no_decision = test_to_plot_df[test_to_plot_df['dec'] == 0].index
+	break_yes_decision = test_to_plot_df[test_to_plot_df['dec'] == 1].index
+
+	fig = plt.figure()
+
+
+	######
+	ax = fig.add_subplot(111, projection = '3d')
+	ax.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], transformed_pca.loc[no_decision]['z_s'], c = 'blue')
+	ax.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], transformed_pca.loc[yes_decision]['z_s'], c = 'red')
+	ax.scatter(test_to_plot_df.loc[break_no_decision]['pca_1'], test_to_plot_df.loc[break_no_decision]['pca_2'], test_to_plot_df.loc[break_no_decision]['pca_3'], c = 'yellow')
+	ax.scatter(test_to_plot_df.loc[break_yes_decision]['pca_1'], test_to_plot_df.loc[break_yes_decision]['pca_2'], test_to_plot_df.loc[break_yes_decision]['pca_3'], c = 'green')
+	ax.set_xlabel('pca_1')
+	ax.set_ylabel('pca_2')
+	ax.set_zlabel('pca_3')
+	#for ii in xrange(0,360,5):
+	#	ax.view_init(elev = 10, azim = ii)
+	#	plt.savefig("movie_9_%d.png" % ii)
+	#	plt.draw()
+	plt.show()
+	######
+
+	plt.scatter(transformed_pca.loc[no_decision]['x_s'], transformed_pca.loc[no_decision]['y_s'], c = 'blue')
+	plt.scatter(transformed_pca.loc[yes_decision]['x_s'], transformed_pca.loc[yes_decision]['y_s'], c = 'red')
+
+	plt.scatter(test_to_plot_df.loc[break_no_decision]['pca_1'], test_to_plot_df.loc[break_no_decision]['pca_2'], c = 'yellow')
+	plt.scatter(test_to_plot_df.loc[break_yes_decision]['pca_1'], test_to_plot_df.loc[break_yes_decision]['pca_2'], c = 'green')
+
+	plt.xlabel('pca_1')
+	plt.ylabel('pca_2')
+
+	red_patch = mpatches.Patch(color = 'red', label = 'Yes Decision')
+	blue_patch = mpatches.Patch(color = 'blue', label = 'No Decision')
+	green_patch = mpatches.Patch(color = 'green', label = 'Break Case: Yes')
+	yellow_patch = mpatches.Patch(color = 'yellow', label = 'Break Case: No')
+	plt.legend(handles = [red_patch, blue_patch, green_patch, yellow_patch], loc = 'lower right')
+
+	plt.show()
