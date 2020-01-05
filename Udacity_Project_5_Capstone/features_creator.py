@@ -450,9 +450,9 @@ def explained_ratio_pca(new_input_df):
 		pca = PCA(n_components = i)
 		pca.fit(new_input_df)
 		#print 'n = ', str(i), ', ', 'Total Ratio: ', pca.explained_variance_ratio_.sum()
-		print 'Components:', pca.components_
-		print 'Explained Variance:', pca.explained_variance_ 
-		print 'Explained Ratio: ', pca.explained_variance_ratio_
+		#print 'Components:', pca.components_
+		#print 'Explained Variance:', pca.explained_variance_ 
+		#print 'Explained Ratio: ', pca.explained_variance_ratio_
 		total_ratio.append(pca.explained_variance_ratio_.sum())
 
 	plt.figure(figsize = (20, 15))
